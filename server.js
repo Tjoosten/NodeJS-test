@@ -5,6 +5,7 @@ var express        = require('express');
 var logger         = require('morgan');
 var cookieParser   = require('cookie-parser');
 var bodyParser     = require('body-parser');
+var fileSys        = require('fs');
 var methodOverride = require('method-override');
 var cliColor       = require('cli-color');
 var app            = express();
@@ -25,6 +26,12 @@ app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/assets'));
+
+// =================================
+// LOGGING
+// =================================
+var accessLogStream = fileSys.createWriteStream(__dirname + '/logs/access.log', {flags: 'a'});
+app.use(logger('combined', {stream: accessLogStream}))
 
 // =================================
 // ROUTING
