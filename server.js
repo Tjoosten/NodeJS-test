@@ -53,7 +53,15 @@ app.use(logger('tiny', {stream: productionLogStream}));
 app.get('/', site.index);
 app.get('/zeelieden', zeelieden.index);
 app.get('/zeelied/:id', zeelieden.sailor);
-app.get('/zeelieden/search', zeelieden.search);
+app.get('/zeelieden/search', function(req, res){
+    
+    var value = req.param.value;
+    
+    res.write('From Form:');
+    res.write(value);
+    res.end();
+
+});
 
 // =================================
 // BOOSTRAP APP
