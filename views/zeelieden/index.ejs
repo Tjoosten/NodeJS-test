@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <title><%=title %></title>
+
+    <link rel="stylesheet" href="/css/master.css">
+  </head>
+  <body>
+    <p>
+      <form class="" action="/zeelieden/search" method="GET">
+        <input type="text" name="value" placeholder="Search on voornaam">
+        <input type="submit" value="Search!">
+      </form>
+    </p>
+
+    <!-- Data table -->
+    <table>
+      <thead>
+        <tr>
+          <th> Name: </th>
+          <th> Gender: </th>
+          <th> Born: </th>
+          <th> Death: </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if(data.length) {
+          for(var i = 0;i < data.length;i++) { %>
+            <tr>
+              <td class="first-td"> <%=data[i].Voornaam %>, <%=data[i].Achternaam %> </td>
+              <td> <%=data[i].Geslacht %> </td>
+              <td> <%=data[i].Geboren_plaats %>, <%=data[i].Geboren_datum %> </td>
+              <td class="last-td"> <%=data[i].Overleden_plaats %>, <%=data[i].Overleden_Datum %> </td>
+            </tr>
+          <% } %>
+        <% } %>
+      </tbody>
+    </table>
+  </body>
+<html>

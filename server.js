@@ -7,19 +7,31 @@ var cookieParser   = require('cookie-parser');
 var bodyParser     = require('body-parser');
 var fileSys        = require('fs');
 var methodOverride = require('method-override');
+var database       = require('mysql')
 var cliColor       = require('cli-color');
 var app            = express();
 
 // Controller vars.
 var site           = require('./controllers/site');
+var zeelieden      = require('./controllers/zeelieden');
 
-module.exports = app;
+module.exports =  app;
 
 // =================================
 // CONFIG
 // =================================
 
-app.set('view engine', 'jade');
+// MySQL config.
+global.MySQL = database.createConnection({
+    host           : '',
+    user           : '',
+    password       : '',
+    database       : '',
+    connectTimeout : 700000
+  });
+
+// Other config stuff
+app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
 app.use(methodOverride('_method'));
@@ -30,26 +42,18 @@ app.use(express.static(__dirname + '/assets'));
 // =================================
 // LOGGING
 // =================================
-var index;
-var logHeader = [
-    '* -------------------------------- *\n',
-    '| Access log                       |\n',
-    '* -------------------------------- *\n\n'
-  ];
+var productionLogStream = fileSys.createWriteStream(__dirname + '/logs/access.log', {flags: 'a'});
 
-fileSys.writeFile(__dirname + '/logs/access.log', logHeader[0] + logHeader[1] + logHeader[2], function(err) {
-  if (err) return console.log(err);
-});
-
-// Start Write messages
-var accessLogStream = fileSys.createWriteStream(__dirname + '/logs/access.log', {flags: 'a'});
-app.use(logger('tiny', {stream: accessLogStream}));
+app.use(logger('tiny', {stream: productionLogStream}));
 
 // =================================
 // ROUTING
 // =================================
 
 app.get('/', site.index);
+app.get('/zeelieden', zeelieden.index);
+app.get('/zeelied/:id', zeelieden.sailor);
+app.get('/zeelieden/search', zeelieden.search);
 
 // =================================
 // BOOSTRAP APP

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <title><%=title %></title>
+  </head>
+  <body>
+    <p><a href="/zeelieden">Ga Terug</a></p>
+
+    <% if(data.length) {
+      for(var i = 0;i < data.length;i++) { %>
+       Naam: <code><%=data[i].Voornaam %> <%=data[i].Achternaam %></code> </br>
+       Geboorte: <code><%=data[i].Geboren_plaats %>, <%=data[i].Geboren_datum %></code> <br />
+       Geslacht: <code><%=data[i].Geslacht %></code> <br />
+       Woonplaats: <code><%=data[i].Woonplaats %></code> </br><br />
+
+       Graad: <code><%=data[i].Graad %></code><br />
+       Schip: <code><%=data[i].Schip %></code><br /><br />
+
+       Overleden: <code><%=data[i].Overleden_plaats %>, <%=data[i].Overleden_Datum %></code><br />
+
+    <% }} %>
+  </body>
+<html>

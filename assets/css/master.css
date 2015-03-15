@@ -1,3 +1,23 @@
-body {
-  padding-top: 75px;
+th {
+  padding-left: 7px;
+  padding-right: 7px;
+  text-align: left;
+  border-right: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+}
+
+.first-td {
+  border-left: 1px solid #000000;
+}
+
+table {
+  border-collapse:collapse;
+  border: 1px solid #000;
+}
+
+td {
+  text-align: left;
+  border-right: 1px solid #000000;
+  padding-left: 7px;
+  padding-right: 7px;
 }
