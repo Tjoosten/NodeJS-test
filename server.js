@@ -30,8 +30,20 @@ app.use(express.static(__dirname + '/assets'));
 // =================================
 // LOGGING
 // =================================
+var index;
+var logHeader = [
+    '* -------------------------------- *\n',
+    '| Access log                       |\n',
+    '* -------------------------------- *\n\n'
+  ];
+
+fileSys.writeFile(__dirname + '/logs/access.log', logHeader[0] + logHeader[1] + logHeader[2], function(err) {
+  if (err) return console.log(err);
+});
+
+// Start Write messages
 var accessLogStream = fileSys.createWriteStream(__dirname + '/logs/access.log', {flags: 'a'});
-app.use(logger('combined', {stream: accessLogStream}))
+app.use(logger('tiny', {stream: accessLogStream}));
 
 // =================================
 // ROUTING
